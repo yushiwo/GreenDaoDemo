@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User user = new User(3L,"zr" + index, 18 + index, "F");
+                User user = new User(3L,"zr" + index, 18 + index, "F", 180);
                 UserDBManager.getInstance().update(user);
             }
         });

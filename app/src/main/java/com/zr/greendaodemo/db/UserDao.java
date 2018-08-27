@@ -28,6 +28,7 @@ public class UserDao extends AbstractDao<User, Long> {
         public final static Property UserName = new Property(1, String.class, "userName", false, "USER_NAME");
         public final static Property Age = new Property(2, int.class, "age", false, "AGE");
         public final static Property Gender = new Property(3, String.class, "gender", false, "GENDER");
+        public final static Property Height = new Property(4, int.class, "height", false, "HEIGHT");
     }
 
 
@@ -46,7 +47,8 @@ public class UserDao extends AbstractDao<User, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"USER_NAME\" TEXT," + // 1: userName
                 "\"AGE\" INTEGER NOT NULL ," + // 2: age
-                "\"GENDER\" TEXT);"); // 3: gender
+                "\"GENDER\" TEXT," + // 3: gender
+                "\"HEIGHT\" INTEGER NOT NULL );"); // 4: height
     }
 
     /** Drops the underlying database table. */
@@ -74,6 +76,7 @@ public class UserDao extends AbstractDao<User, Long> {
         if (gender != null) {
             stmt.bindString(4, gender);
         }
+        stmt.bindLong(5, entity.getHeight());
     }
 
     @Override
@@ -95,6 +98,7 @@ public class UserDao extends AbstractDao<User, Long> {
         if (gender != null) {
             stmt.bindString(4, gender);
         }
+        stmt.bindLong(5, entity.getHeight());
     }
 
     @Override
@@ -108,7 +112,8 @@ public class UserDao extends AbstractDao<User, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // userName
             cursor.getInt(offset + 2), // age
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // gender
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // gender
+            cursor.getInt(offset + 4) // height
         );
         return entity;
     }
@@ -119,6 +124,7 @@ public class UserDao extends AbstractDao<User, Long> {
         entity.setUserName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setAge(cursor.getInt(offset + 2));
         entity.setGender(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setHeight(cursor.getInt(offset + 4));
      }
     
     @Override

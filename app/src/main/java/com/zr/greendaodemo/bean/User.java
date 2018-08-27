@@ -15,6 +15,8 @@ public class User {
     private String userName;
     private int age;
     private String gender;
+    private int height;
+
     public User(String userName, int age, String gender) {
         this.userName = userName;
         this.age = age;
@@ -22,16 +24,14 @@ public class User {
     }
     public User() {
     }
-    @Generated(hash = 1778444354)
-    public User(Long id, String userName, int age, String gender) {
+    @Generated(hash = 327257120)
+    public User(Long id, String userName, int age, String gender, int height) {
         this.id = id;
         this.userName = userName;
         this.age = age;
         this.gender = gender;
+        this.height = height;
     }
-
-    
-
     public String getUserName() {
         return this.userName;
     }
@@ -51,6 +51,7 @@ public class User {
         this.gender = gender;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
@@ -58,12 +59,20 @@ public class User {
                 ", userName='" + userName + '\'' +
                 ", age=" + age +
                 ", gender='" + gender + '\'' +
+                ", height=" + height +
                 '}';
     }
+
     public void setId(Long id) {
         this.id = id;
     }
     public Long getId() {
         return this.id;
+    }
+    public int getHeight() {
+        return this.height;
+    }
+    public void setHeight(int height) {
+        this.height = height;
     }
 }
