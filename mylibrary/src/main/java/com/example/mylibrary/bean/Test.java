@@ -13,6 +13,11 @@ public class Test {
     @Id(autoincrement = true)
     private Long id;
     private String namde;
+
+    public Test(String namde) {
+        this.namde = namde;
+    }
+
     @Generated(hash = 1666205923)
     public Test(Long id, String namde) {
         this.id = id;
@@ -32,5 +37,13 @@ public class Test {
     }
     public void setNamde(String namde) {
         this.namde = namde;
+    }
+
+    @Override
+    public String toString() {
+        return "Test{" +
+                "id=" + id +
+                ", namde='" + namde + '\'' +
+                '}';
     }
 }

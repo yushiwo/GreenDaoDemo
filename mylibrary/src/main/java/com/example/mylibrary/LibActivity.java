@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import com.example.mylibrary.bean.Test;
+import com.example.mylibrary.helper.GreenDaoHelper;
 import com.example.mylibrary.manager.TestDBManager;
 import java.util.List;
 
@@ -30,6 +31,8 @@ public class LibActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lib);
 
+        GreenDaoHelper.initDatabase(this);
+
         initViews();
 
         setListeners();
@@ -49,7 +52,7 @@ public class LibActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 index ++;
-                Test user = new Test(1L, "18" + index);
+                Test user = new Test("18" + index);
                 TestDBManager.getInstance().insert(user);
             }
         });
