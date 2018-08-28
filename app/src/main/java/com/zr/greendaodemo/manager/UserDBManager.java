@@ -26,7 +26,7 @@ public class UserDBManager {
     }
 
     public void insert(User user) {
-        GreenDaoHelper.getDaoSession().getUserDao().insert(user);
+        GreenDaoHelper.getDaoSession().getUserDao().insertOrReplace(user);
     }
 
     public void update(User user) {

@@ -25,10 +25,26 @@ public class UserDao extends AbstractDao<User, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property UserName = new Property(1, String.class, "userName", false, "USER_NAME");
-        public final static Property Age = new Property(2, int.class, "age", false, "AGE");
-        public final static Property Gender = new Property(3, String.class, "gender", false, "GENDER");
-        public final static Property Height = new Property(4, int.class, "height", false, "HEIGHT");
+        public final static Property Name = new Property(1, String.class, "name", false, "NAME");
+        public final static Property Email = new Property(2, String.class, "email", false, "EMAIL");
+        public final static Property Phone_number = new Property(3, String.class, "phone_number", false, "PHONE_NUMBER");
+        public final static Property Sn = new Property(4, String.class, "sn", false, "SN");
+        public final static Property Successful_trading_orders_count = new Property(5, int.class, "successful_trading_orders_count", false, "SUCCESSFUL_TRADING_ORDERS_COUNT");
+        public final static Property Avg_recieved_reviews_rating = new Property(6, double.class, "avg_recieved_reviews_rating", false, "AVG_RECIEVED_REVIEWS_RATING");
+        public final static Property Trusted_count = new Property(7, int.class, "trusted_count", false, "TRUSTED_COUNT");
+        public final static Property Image_url = new Property(8, String.class, "image_url", false, "IMAGE_URL");
+        public final static Property Alive = new Property(9, boolean.class, "alive", false, "ALIVE");
+        public final static Property Email_confirmed = new Property(10, boolean.class, "email_confirmed", false, "EMAIL_CONFIRMED");
+        public final static Property Identify_confirmed = new Property(11, boolean.class, "identify_confirmed", false, "IDENTIFY_CONFIRMED");
+        public final static Property Advanced_identity_confirmed = new Property(12, boolean.class, "advanced_identity_confirmed", false, "ADVANCED_IDENTITY_CONFIRMED");
+        public final static Property Is_certified_merchant = new Property(13, boolean.class, "is_certified_merchant", false, "IS_CERTIFIED_MERCHANT");
+        public final static Property Verification_method = new Property(14, String.class, "verification_method", false, "VERIFICATION_METHOD");
+        public final static Property Real_name = new Property(15, String.class, "real_name", false, "REAL_NAME");
+        public final static Property Human_id_type = new Property(16, String.class, "human_id_type", false, "HUMAN_ID_TYPE");
+        public final static Property Locale = new Property(17, String.class, "locale", false, "LOCALE");
+        public final static Property Token = new Property(18, String.class, "token", false, "TOKEN");
+        public final static Property User_id = new Property(19, long.class, "user_id", false, "USER_ID");
+        public final static Property EXTRA = new Property(20, String.class, "EXTRA", false, "EXTRA");
     }
 
 
@@ -45,10 +61,26 @@ public class UserDao extends AbstractDao<User, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"USER_NAME\" TEXT," + // 1: userName
-                "\"AGE\" INTEGER NOT NULL ," + // 2: age
-                "\"GENDER\" TEXT," + // 3: gender
-                "\"HEIGHT\" INTEGER NOT NULL );"); // 4: height
+                "\"NAME\" TEXT," + // 1: name
+                "\"EMAIL\" TEXT," + // 2: email
+                "\"PHONE_NUMBER\" TEXT," + // 3: phone_number
+                "\"SN\" TEXT UNIQUE ," + // 4: sn
+                "\"SUCCESSFUL_TRADING_ORDERS_COUNT\" INTEGER NOT NULL ," + // 5: successful_trading_orders_count
+                "\"AVG_RECIEVED_REVIEWS_RATING\" REAL NOT NULL ," + // 6: avg_recieved_reviews_rating
+                "\"TRUSTED_COUNT\" INTEGER NOT NULL ," + // 7: trusted_count
+                "\"IMAGE_URL\" TEXT," + // 8: image_url
+                "\"ALIVE\" INTEGER NOT NULL ," + // 9: alive
+                "\"EMAIL_CONFIRMED\" INTEGER NOT NULL ," + // 10: email_confirmed
+                "\"IDENTIFY_CONFIRMED\" INTEGER NOT NULL ," + // 11: identify_confirmed
+                "\"ADVANCED_IDENTITY_CONFIRMED\" INTEGER NOT NULL ," + // 12: advanced_identity_confirmed
+                "\"IS_CERTIFIED_MERCHANT\" INTEGER NOT NULL ," + // 13: is_certified_merchant
+                "\"VERIFICATION_METHOD\" TEXT," + // 14: verification_method
+                "\"REAL_NAME\" TEXT," + // 15: real_name
+                "\"HUMAN_ID_TYPE\" TEXT," + // 16: human_id_type
+                "\"LOCALE\" TEXT," + // 17: locale
+                "\"TOKEN\" TEXT," + // 18: token
+                "\"USER_ID\" INTEGER NOT NULL ," + // 19: user_id
+                "\"EXTRA\" TEXT);"); // 20: EXTRA
     }
 
     /** Drops the underlying database table. */
@@ -66,17 +98,69 @@ public class UserDao extends AbstractDao<User, Long> {
             stmt.bindLong(1, id);
         }
  
-        String userName = entity.getUserName();
-        if (userName != null) {
-            stmt.bindString(2, userName);
+        String name = entity.getName();
+        if (name != null) {
+            stmt.bindString(2, name);
         }
-        stmt.bindLong(3, entity.getAge());
  
-        String gender = entity.getGender();
-        if (gender != null) {
-            stmt.bindString(4, gender);
+        String email = entity.getEmail();
+        if (email != null) {
+            stmt.bindString(3, email);
         }
-        stmt.bindLong(5, entity.getHeight());
+ 
+        String phone_number = entity.getPhone_number();
+        if (phone_number != null) {
+            stmt.bindString(4, phone_number);
+        }
+ 
+        String sn = entity.getSn();
+        if (sn != null) {
+            stmt.bindString(5, sn);
+        }
+        stmt.bindLong(6, entity.getSuccessful_trading_orders_count());
+        stmt.bindDouble(7, entity.getAvg_recieved_reviews_rating());
+        stmt.bindLong(8, entity.getTrusted_count());
+ 
+        String image_url = entity.getImage_url();
+        if (image_url != null) {
+            stmt.bindString(9, image_url);
+        }
+        stmt.bindLong(10, entity.getAlive() ? 1L: 0L);
+        stmt.bindLong(11, entity.getEmail_confirmed() ? 1L: 0L);
+        stmt.bindLong(12, entity.getIdentify_confirmed() ? 1L: 0L);
+        stmt.bindLong(13, entity.getAdvanced_identity_confirmed() ? 1L: 0L);
+        stmt.bindLong(14, entity.getIs_certified_merchant() ? 1L: 0L);
+ 
+        String verification_method = entity.getVerification_method();
+        if (verification_method != null) {
+            stmt.bindString(15, verification_method);
+        }
+ 
+        String real_name = entity.getReal_name();
+        if (real_name != null) {
+            stmt.bindString(16, real_name);
+        }
+ 
+        String human_id_type = entity.getHuman_id_type();
+        if (human_id_type != null) {
+            stmt.bindString(17, human_id_type);
+        }
+ 
+        String locale = entity.getLocale();
+        if (locale != null) {
+            stmt.bindString(18, locale);
+        }
+ 
+        String token = entity.getToken();
+        if (token != null) {
+            stmt.bindString(19, token);
+        }
+        stmt.bindLong(20, entity.getUser_id());
+ 
+        String EXTRA = entity.getEXTRA();
+        if (EXTRA != null) {
+            stmt.bindString(21, EXTRA);
+        }
     }
 
     @Override
@@ -88,17 +172,69 @@ public class UserDao extends AbstractDao<User, Long> {
             stmt.bindLong(1, id);
         }
  
-        String userName = entity.getUserName();
-        if (userName != null) {
-            stmt.bindString(2, userName);
+        String name = entity.getName();
+        if (name != null) {
+            stmt.bindString(2, name);
         }
-        stmt.bindLong(3, entity.getAge());
  
-        String gender = entity.getGender();
-        if (gender != null) {
-            stmt.bindString(4, gender);
+        String email = entity.getEmail();
+        if (email != null) {
+            stmt.bindString(3, email);
         }
-        stmt.bindLong(5, entity.getHeight());
+ 
+        String phone_number = entity.getPhone_number();
+        if (phone_number != null) {
+            stmt.bindString(4, phone_number);
+        }
+ 
+        String sn = entity.getSn();
+        if (sn != null) {
+            stmt.bindString(5, sn);
+        }
+        stmt.bindLong(6, entity.getSuccessful_trading_orders_count());
+        stmt.bindDouble(7, entity.getAvg_recieved_reviews_rating());
+        stmt.bindLong(8, entity.getTrusted_count());
+ 
+        String image_url = entity.getImage_url();
+        if (image_url != null) {
+            stmt.bindString(9, image_url);
+        }
+        stmt.bindLong(10, entity.getAlive() ? 1L: 0L);
+        stmt.bindLong(11, entity.getEmail_confirmed() ? 1L: 0L);
+        stmt.bindLong(12, entity.getIdentify_confirmed() ? 1L: 0L);
+        stmt.bindLong(13, entity.getAdvanced_identity_confirmed() ? 1L: 0L);
+        stmt.bindLong(14, entity.getIs_certified_merchant() ? 1L: 0L);
+ 
+        String verification_method = entity.getVerification_method();
+        if (verification_method != null) {
+            stmt.bindString(15, verification_method);
+        }
+ 
+        String real_name = entity.getReal_name();
+        if (real_name != null) {
+            stmt.bindString(16, real_name);
+        }
+ 
+        String human_id_type = entity.getHuman_id_type();
+        if (human_id_type != null) {
+            stmt.bindString(17, human_id_type);
+        }
+ 
+        String locale = entity.getLocale();
+        if (locale != null) {
+            stmt.bindString(18, locale);
+        }
+ 
+        String token = entity.getToken();
+        if (token != null) {
+            stmt.bindString(19, token);
+        }
+        stmt.bindLong(20, entity.getUser_id());
+ 
+        String EXTRA = entity.getEXTRA();
+        if (EXTRA != null) {
+            stmt.bindString(21, EXTRA);
+        }
     }
 
     @Override
@@ -110,10 +246,26 @@ public class UserDao extends AbstractDao<User, Long> {
     public User readEntity(Cursor cursor, int offset) {
         User entity = new User( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // userName
-            cursor.getInt(offset + 2), // age
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // gender
-            cursor.getInt(offset + 4) // height
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // email
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // phone_number
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // sn
+            cursor.getInt(offset + 5), // successful_trading_orders_count
+            cursor.getDouble(offset + 6), // avg_recieved_reviews_rating
+            cursor.getInt(offset + 7), // trusted_count
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // image_url
+            cursor.getShort(offset + 9) != 0, // alive
+            cursor.getShort(offset + 10) != 0, // email_confirmed
+            cursor.getShort(offset + 11) != 0, // identify_confirmed
+            cursor.getShort(offset + 12) != 0, // advanced_identity_confirmed
+            cursor.getShort(offset + 13) != 0, // is_certified_merchant
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // verification_method
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // real_name
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // human_id_type
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // locale
+            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // token
+            cursor.getLong(offset + 19), // user_id
+            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20) // EXTRA
         );
         return entity;
     }
@@ -121,10 +273,26 @@ public class UserDao extends AbstractDao<User, Long> {
     @Override
     public void readEntity(Cursor cursor, User entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setUserName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setAge(cursor.getInt(offset + 2));
-        entity.setGender(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setHeight(cursor.getInt(offset + 4));
+        entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setEmail(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setPhone_number(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setSn(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setSuccessful_trading_orders_count(cursor.getInt(offset + 5));
+        entity.setAvg_recieved_reviews_rating(cursor.getDouble(offset + 6));
+        entity.setTrusted_count(cursor.getInt(offset + 7));
+        entity.setImage_url(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setAlive(cursor.getShort(offset + 9) != 0);
+        entity.setEmail_confirmed(cursor.getShort(offset + 10) != 0);
+        entity.setIdentify_confirmed(cursor.getShort(offset + 11) != 0);
+        entity.setAdvanced_identity_confirmed(cursor.getShort(offset + 12) != 0);
+        entity.setIs_certified_merchant(cursor.getShort(offset + 13) != 0);
+        entity.setVerification_method(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setReal_name(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setHuman_id_type(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setLocale(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setToken(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
+        entity.setUser_id(cursor.getLong(offset + 19));
+        entity.setEXTRA(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
      }
     
     @Override

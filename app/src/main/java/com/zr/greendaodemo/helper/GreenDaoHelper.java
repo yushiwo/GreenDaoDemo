@@ -18,7 +18,7 @@ public class GreenDaoHelper {
      */
     public static final boolean ENCRYPTED = true;
 
-    private static final String DB_NAME = "cache-db";
+    private static final String DB_NAME = "cac-db";
     private static final String PASSWORD = "123456";
 
     private static MySQLiteOpenHelper devOpenHelper;

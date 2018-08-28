@@ -3,7 +3,7 @@ apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 greendao {
     //数据库的schema版本，也可以理解为数据库版本号
-    schemaVersion 5
+    schemaVersion 1
     //设置DaoMaster、DaoSession、Dao包名，也就是要放置这些类的包的全路径。
     daoPackage 'com.zr.greendaodemo.db'
     //设置DaoMaster、DaoSession、Dao目录
@@ -36,6 +36,8 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2' // add library
 
     compile 'net.zetetic:android-database-sqlcipher:3.5.6'//加密库依赖（可选项）
+
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     compile project(':mylibrary')
 

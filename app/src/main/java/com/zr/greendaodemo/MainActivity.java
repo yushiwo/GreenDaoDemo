@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.mylibrary.LibActivity;
 import com.zr.greendaodemo.bean.User;
+import com.zr.greendaodemo.dto.UserDto;
 import com.zr.greendaodemo.manager.UserDBManager;
 
 import java.util.List;
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 index ++;
-                User user = new User("zr" + index, 18 + index, "M");
+                UserDto userDto = new UserDto("zr" + index, "email", 118);
+                User user = new User(userDto);
                 UserDBManager.getInstance().insert(user);
             }
         });
@@ -69,7 +71,11 @@ public class MainActivity extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User user = new User(3L,"zr" + index, 18 + index, "F", 180);
+                List<User> userList = UserDBManager.getInstance().queryAll();
+                User user = userList.get(userList.size() - 1);
+
+                user.setEmail("hahahah");
+
                 UserDBManager.getInstance().update(user);
             }
         });
@@ -79,8 +85,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 List<User> userList = UserDBManager.getInstance().queryAll();
 
-                if (userList != null) {
-                    tv.setText(userList.toString());
+                if (userList != null && userList.size() > 0) {
+                    User lastUser = userList.get(userList.size() - 1);
+                    tv.setText(userList.size() + ":" + lastUser.getExtra().getAge());
+                    System.out.println(userList.toString());
                 }
             }
         });
