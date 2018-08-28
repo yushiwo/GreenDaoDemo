@@ -8,7 +8,7 @@ import com.zr.greendaodemo.helper.GreenDaoHelper;
  * Created by zr on 2018/8/27.
  */
 
-public class NyApplication extends Application {
+public class MyApplication extends Application {
 
     @Override
     public void onCreate() {
